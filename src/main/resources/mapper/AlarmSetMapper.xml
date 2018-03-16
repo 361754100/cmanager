@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hro.core.cmanager.dao.mapper.AlarmSetMapper" >
+  <resultMap id="BaseResultMap" type="com.hro.core.cmanager.dao.model.AlarmSet" >
+    <id column="DEVID" property="devid" jdbcType="VARCHAR" />
+    <result column="ALARM_RADIUS" property="alarmRadius" jdbcType="DOUBLE" />
+    <result column="OPERATE" property="operate" jdbcType="INTEGER" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DEVID, ALARM_RADIUS, OPERATE, CREATE_TIME, UPDATE_TIME, OPERATOR
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hro.core.cmanager.dao.model.AlarmSetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ALARM_SET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ALARM_SET
+    where DEVID = #{devid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ALARM_SET
+    where DEVID = #{devid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hro.core.cmanager.dao.model.AlarmSetExample" >
+    delete from ALARM_SET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hro.core.cmanager.dao.model.AlarmSet" >
+    insert into ALARM_SET (DEVID, ALARM_RADIUS, OPERATE, 
+      CREATE_TIME, UPDATE_TIME, OPERATOR
+      )
+    values (#{devid,jdbcType=VARCHAR}, #{alarmRadius,jdbcType=DOUBLE}, #{operate,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hro.core.cmanager.dao.model.AlarmSet" >
+    insert into ALARM_SET
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="devid != null" >
+        DEVID,
+      </if>
+      <if test="alarmRadius != null" >
+        ALARM_RADIUS,
+      </if>
+      <if test="operate != null" >
+        OPERATE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="devid != null" >
+        #{devid,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmRadius != null" >
+        #{alarmRadius,jdbcType=DOUBLE},
+      </if>
+      <if test="operate != null" >
+        #{operate,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hro.core.cmanager.dao.model.AlarmSetExample" resultType="java.lang.Integer" >
+    select count(*) from ALARM_SET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ALARM_SET
+    <set >
+      <if test="record.devid != null" >
+        DEVID = #{record.devid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alarmRadius != null" >
+        ALARM_RADIUS = #{record.alarmRadius,jdbcType=DOUBLE},
+      </if>
+      <if test="record.operate != null" >
+        OPERATE = #{record.operate,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operator != null" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ALARM_SET
+    set DEVID = #{record.devid,jdbcType=VARCHAR},
+      ALARM_RADIUS = #{record.alarmRadius,jdbcType=DOUBLE},
+      OPERATE = #{record.operate,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hro.core.cmanager.dao.model.AlarmSet" >
+    update ALARM_SET
+    <set >
+      <if test="alarmRadius != null" >
+        ALARM_RADIUS = #{alarmRadius,jdbcType=DOUBLE},
+      </if>
+      <if test="operate != null" >
+        OPERATE = #{operate,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DEVID = #{devid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hro.core.cmanager.dao.model.AlarmSet" >
+    update ALARM_SET
+    set ALARM_RADIUS = #{alarmRadius,jdbcType=DOUBLE},
+      OPERATE = #{operate,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      OPERATOR = #{operator,jdbcType=VARCHAR}
+    where DEVID = #{devid,jdbcType=VARCHAR}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.hro.core.cmanager.dao.model.AlarmSetExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ALARM_SET
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>
