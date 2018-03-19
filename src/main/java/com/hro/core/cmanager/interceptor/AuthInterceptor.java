@@ -20,15 +20,31 @@ public class AuthInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String authHeader = request.getHeader(Constant.X_AUTH_HEADER);
-        String reqHost = request.getRemoteHost();
+        String reqFrom = this.getIpAddr(request);
+        String reqSessionId = request.getRequestedSessionId();
         String reqUrl = request.getRequestURL().toString();
 
-        logger.debug("authHeader={}, reqHost={}, reqUrl={}", authHeader, reqHost, reqUrl);
+        logger.debug("reqSessionId={}, authHeader={}, reqFrom={}, reqUrl={}", reqSessionId, authHeader, reqFrom, reqUrl);
 
 //        if(!"111".equals(authHeader)) {
 //            return false;
 //        }
 
         return true;
+    }
+
+
+    public String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 }

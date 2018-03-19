@@ -12,35 +12,51 @@ import org.springframework.web.servlet.config.annotation.*;
 @ComponentScan(basePackages = "com.hro.core.cmanager", useDefaultFilters = false, includeFilters = {
         @ComponentScan.Filter(type = FilterType.ANNOTATION, value = {RestController.class})
 })
-public class InterceptorConfig extends WebMvcConfigurationSupport {
+public class InterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
     private AuthInterceptor authInterceptor;
 
     @Override
-    protected void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new BootInterceptor()).addPathPatterns("/**");
-//        registry.addInterceptor(authInterceptor).addPathPatterns("/**");
-        registry.addInterceptor(new AuthInterceptor());
-
-        super.addInterceptors(registry);
-    }
-
-    @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
-        super.addResourceHandlers(registry);
     }
 
-    /**
-     * 配置servlet处理
-     */
     @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
+    public void addInterceptors(InterceptorRegistry registry) {
+
+        registry.addInterceptor(authInterceptor).addPathPatterns("/**");
+
     }
+
+
+//
+//    @Override
+//    protected void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(authInterceptor).addPathPatterns("/**");
+//
+//        super.addInterceptors(registry);
+//    }
+//
+//    @Override
+//    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("swagger-ui.html")
+//                .addResourceLocations("classpath:/META-INF/resources/");
+//        registry.addResourceHandler("/webjars/**")
+//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+//        super.addResourceHandlers(registry);
+//    }
+//
+//    /**
+//     * 配置servlet处理
+//     */
+//    @Override
+//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//        configurer.enable();
+//    }
 }
