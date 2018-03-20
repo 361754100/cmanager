@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -96,7 +97,7 @@ public class CarInfoDao {
     }
 
     /**
-     *
+     * 分页查询
      * @return
      */
     public List<CarInfo> queryPageRecord(CarInfoReq req) {
@@ -106,6 +107,15 @@ public class CarInfoDao {
         CarInfoExample example = new CarInfoExample();
 
         List<CarInfo> result = carInfoMapper.selectByExampleWithRowbounds(example, RowBoundsUtil.of(pageNum, pageSize));
+        return result;
+    }
+
+    /**
+     * 根据手机号码查询车辆信息
+     * @return
+     */
+    public List<CarInfo> queryInfoByTelephone(String telephone) {
+        List<CarInfo> result = carInfoMapper.selectByTelephone(telephone);
         return result;
     }
 
