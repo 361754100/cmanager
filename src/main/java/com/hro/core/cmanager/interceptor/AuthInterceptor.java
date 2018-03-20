@@ -30,9 +30,12 @@ public class AuthInterceptor implements HandlerInterceptor{
 
         logger.debug("reqSessionId={}, authHeader={}, reqFrom={}, reqUrl={}", reqSessionId, authHeader, reqFrom, reqUrl);
 
-        if(reqUrl.indexOf("/swagger") != -1 || reqUrl.indexOf("/error") != -1
-                || reqUrl.indexOf("/v2/api-docs") != -1) {
+        if(this.isStaticResource(reqUrl)) {
             return true;
+        }
+
+        if(authHeader == null) {
+            return false;
         }
 
         //--解密数据
@@ -61,4 +64,20 @@ public class AuthInterceptor implements HandlerInterceptor{
         }
         return ip;
     }
+
+    /**
+     * 判断是否属于静态资源请求
+     * @param reqUrl
+     * @return
+     */
+    public boolean isStaticResource(String reqUrl) {
+        boolean result = false;
+        if(reqUrl.indexOf("/swagger") != -1 || reqUrl.indexOf("/error") != -1
+                || reqUrl.indexOf("/v2/api-docs") != -1 || reqUrl.indexOf("/webjars") != -1
+                || reqUrl.indexOf("/images") != -1 || reqUrl.indexOf("/configuration") != -1) {
+            result = true;
+        }
+        return result;
+    }
+
 }
