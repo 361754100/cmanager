@@ -222,4 +222,14 @@
       order by ${orderByClause}
     </if>
   </select>
+
+
+  <select id="selectByTelephone" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from CAR_INFO
+    where exists(
+      select 1 from USER_INFO where TELEPHONE = ${telephone} and CAR_INFO.USER_ID = USER_INFO.USER_ID
+    )
+  </select>
 </mapper>

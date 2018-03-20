@@ -3,12 +3,15 @@ package com.hro.core.cmanager.controller;
 import com.hro.core.cmanager.controller.request.CarInfoReq;
 import com.hro.core.cmanager.controller.response.CarInfoQueryPageResp;
 import com.hro.core.cmanager.controller.response.CommonResp;
+import com.hro.core.cmanager.dao.model.CarInfo;
 import com.hro.core.cmanager.log.LogUtil;
 import com.hro.core.cmanager.service.CarInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/carInfo")
@@ -60,6 +63,17 @@ public class CarInfoController {
         CarInfoQueryPageResp resp = carInfoService.queryInfoPage(req);
         LogUtil.info("分页查询车辆信息，响应消息={}", resp);
         return resp;
+    }
+
+    @ApiOperation(value = "查询车辆信息", notes = "用手机号查询用户关联的车辆信息")
+    @RequestMapping(value = "/queryInfoByTelephone", method = RequestMethod.POST)
+    @ResponseBody
+    public List<CarInfo> queryInfoByTelephone(@RequestParam String telephone) {
+        LogUtil.info("查询车辆信息, 接收到的请求参数={}", telephone);
+
+        List<CarInfo> result = carInfoService.queryInfoByTelephone(telephone);
+        LogUtil.info("查询车辆信息，响应消息={}", result);
+        return result;
     }
 
 }
