@@ -105,4 +105,14 @@ public class CarInfoService {
         return resp;
     }
 
+    /**
+     * 分页查询
+     * @return
+     */
+    public List<CarInfo> queryInfoByTelephone(String telephone) {
+
+        List<CarInfo> result = carInfoDao.queryInfoByTelephone(telephone);
+        return result;
+    }
+
 }
