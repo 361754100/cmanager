@@ -30,4 +30,7 @@ public interface CarInfoMapper {
     int updateByPrimaryKeySelective(CarInfo record);
 
     int updateByPrimaryKey(CarInfo record);
+
+    List<CarInfo> selectByTelephone(@Param("telephone") String telephone);
+
 }
