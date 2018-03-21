@@ -4,6 +4,7 @@ import com.hro.core.cmanager.controller.request.AlarmSetReq;
 import com.hro.core.cmanager.controller.response.AlarmSetQueryPageResp;
 import com.hro.core.cmanager.controller.response.CommonResp;
 import com.hro.core.cmanager.dao.model.AlarmSet;
+import com.hro.core.cmanager.dao.model.CarInfo;
 import com.hro.core.cmanager.log.LogUtil;
 import com.hro.core.cmanager.service.AlarmSetService;
 import io.swagger.annotations.Api;
@@ -66,9 +67,10 @@ public class AlarmSetController {
     @ApiOperation(value = "条件查询告警配置", notes = "")
     @RequestMapping(value = "/queryInfoByDevid", method = RequestMethod.POST)
     @ResponseBody
-    public AlarmSet queryInfoPage(@RequestParam String devid) {
-        LogUtil.info("条件查询告警配置, 接收到的请求参数={}", devid);
+    public AlarmSet queryInfoPage(@RequestBody CarInfo params) {
+        LogUtil.info("条件查询告警配置, 接收到的请求参数={}", params);
 
+        String devid = params.getDevid();
         AlarmSet alarmSet = alarmSetService.queryInfoByDevid(devid);
         LogUtil.info("条件查询告警配置，响应消息={}", alarmSet);
         return alarmSet;
