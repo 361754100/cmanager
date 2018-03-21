@@ -70,8 +70,7 @@ public class AlarmSetController {
     public AlarmSet queryInfoPage(@RequestBody CarInfo params) {
         LogUtil.info("条件查询告警配置, 接收到的请求参数={}", params);
 
-        String devid = params.getDevid();
-        AlarmSet alarmSet = alarmSetService.queryInfoByDevid(devid);
+        AlarmSet alarmSet = alarmSetService.queryInfoByDevid(params.getDevid());
         LogUtil.info("条件查询告警配置，响应消息={}", alarmSet);
         return alarmSet;
     }
