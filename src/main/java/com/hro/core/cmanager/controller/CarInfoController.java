@@ -4,6 +4,7 @@ import com.hro.core.cmanager.controller.request.CarInfoReq;
 import com.hro.core.cmanager.controller.response.CarInfoQueryPageResp;
 import com.hro.core.cmanager.controller.response.CommonResp;
 import com.hro.core.cmanager.dao.model.CarInfo;
+import com.hro.core.cmanager.dao.model.UserInfo;
 import com.hro.core.cmanager.log.LogUtil;
 import com.hro.core.cmanager.service.CarInfoService;
 import io.swagger.annotations.Api;
@@ -68,7 +69,8 @@ public class CarInfoController {
     @ApiOperation(value = "查询车辆信息", notes = "用手机号查询用户关联的车辆信息")
     @RequestMapping(value = "/queryInfoByTelephone", method = RequestMethod.POST)
     @ResponseBody
-    public List<CarInfo> queryInfoByTelephone(@RequestParam String telephone) {
+    public List<CarInfo> queryInfoByTelephone(@RequestBody UserInfo params) {
+        String telephone = params.getTelephone();
         LogUtil.info("查询车辆信息, 接收到的请求参数={}", telephone);
 
         List<CarInfo> result = carInfoService.queryInfoByTelephone(telephone);
