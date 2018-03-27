@@ -52,3 +52,7 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
 
+management:
+  endpoint:
+    health:
+      show-details: always

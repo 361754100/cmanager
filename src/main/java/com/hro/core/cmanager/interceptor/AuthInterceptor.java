@@ -74,7 +74,8 @@ public class AuthInterceptor implements HandlerInterceptor{
         boolean result = false;
         if(reqUrl.indexOf("/swagger") != -1 || reqUrl.indexOf("/error") != -1
                 || reqUrl.indexOf("/v2/api-docs") != -1 || reqUrl.indexOf("/webjars") != -1
-                || reqUrl.indexOf("/images") != -1 || reqUrl.indexOf("/configuration") != -1) {
+                || reqUrl.indexOf("/images") != -1 || reqUrl.indexOf("/configuration") != -1
+                || reqUrl.indexOf("/actuator") != -1) {
             result = true;
         }
         return result;
