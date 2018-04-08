@@ -42,7 +42,7 @@ spring:
       timeout: 3000
 
     application:
-      name: cmanager
+      name: cmanager-service
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml

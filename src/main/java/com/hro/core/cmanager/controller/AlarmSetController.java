@@ -67,7 +67,7 @@ public class AlarmSetController {
     @ApiOperation(value = "条件查询告警配置", notes = "")
     @RequestMapping(value = "/queryInfoByDevid", method = RequestMethod.POST)
     @ResponseBody
-    public AlarmSet queryInfoPage(@RequestBody CarInfo params) {
+    public AlarmSet queryInfoByDevid(@RequestBody CarInfo params) {
         LogUtil.info("条件查询告警配置, 接收到的请求参数={}", params);
 
         AlarmSet alarmSet = alarmSetService.queryInfoByDevid(params.getDevid());
