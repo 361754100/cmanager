@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisPassword;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+//import org.springframework.data.redis.connection.RedisPassword;
+//import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -52,17 +52,22 @@ public class RedisConfig {
     public JedisConnectionFactory getConnectionFactory() {
         JedisPoolConfig config = getRedisConfig();
 
-        RedisPassword redisPassword = RedisPassword.of(this.password);
+//        RedisPassword redisPassword = RedisPassword.of(this.password);
+//
+//        RedisStandaloneConfiguration aloneConfig = new RedisStandaloneConfiguration();
+//        aloneConfig.setHostName(this.host);
+//        aloneConfig.setPassword(redisPassword);
+//        aloneConfig.setDatabase(this.database);
+//        aloneConfig.setPort(this.port);
 
-        RedisStandaloneConfiguration aloneConfig = new RedisStandaloneConfiguration();
-        aloneConfig.setHostName(this.host);
-        aloneConfig.setPassword(redisPassword);
-        aloneConfig.setDatabase(this.database);
-        aloneConfig.setPort(this.port);
+        JedisConnectionFactory factory = new JedisConnectionFactory(config);
+        factory.setPassword(this.password);
+        factory.setHostName(this.host);
+        factory.setDatabase(this.database);
+        factory.setPort(this.port);
 
-        JedisConnectionFactory factory = new JedisConnectionFactory(aloneConfig);
 
-        factory.setPoolConfig(config);
+//        factory.setPoolConfig(config);
         LogUtil.info("JedisConnectionFactory bean init success.");
         return factory;
     }

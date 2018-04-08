@@ -6,8 +6,8 @@ server:
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://193.112.105.43:3306/carmonitor?useSSL=false
-        username: root
+        url: jdbc:mysql://localhost:3306/carmonitor?useSSL=false
+        username: carmonitor
         password: rycuj9_Jian
         # 使用druid数据源
         #type: com.alibaba.druid.pool.DruidDataSource
@@ -41,6 +41,9 @@ spring:
           min-idle: 0
       timeout: 3000
 
+    application:
+      name: cmanager
+
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.hro.core.cmanager.dao.model
@@ -52,3 +55,12 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
 
+management:
+  endpoint:
+    health:
+      show-details: always
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
